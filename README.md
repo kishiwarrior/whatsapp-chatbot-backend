@@ -1,162 +1,184 @@
-# 📱 WhatsApp Chatbot Backend — Spring Boot
+# \# whatsapp-chatbot-backend
 
-A production-ready REST API backend that simulates a WhatsApp chatbot, built with Java 17 and Spring Boot 3.
+# 
 
----
+# A Spring Boot REST API that simulates a WhatsApp chatbot backend. Built as an internship assignment.
 
-## 🚀 Features
+# 
 
-- **POST `/webhook`** — Receive simulated WhatsApp messages and get instant bot replies
-- **GET `/webhook/logs`** — View all messages processed since server start
-- **GET `/webhook/health`** — Health check for deployment platforms
-- Predefined keyword-based replies (Hi → Hello, Bye → Goodbye, and more)
-- Full request validation with clean error responses
-- Structured console logging for every message
-- CORS-enabled for frontend integration
-- Ready to deploy on **Render** (free tier)
+# \---
 
----
+# 
 
-## 📋 Prerequisites
+# \## what it does
 
-- Java 17+
-- Maven 3.8+
+# 
 
----
+# Accepts POST requests with a JSON message body, matches the message against a set of predefined replies, logs everything to console, and returns a response.
 
-## ⚡ Run Locally
+# 
 
-```bash
-# Clone the repo
-git clone https://github.com/YOUR_USERNAME/whatsapp-chatbot-backend.git
-cd whatsapp-chatbot-backend
+# Endpoints:
 
-# Build and run
-mvn spring-boot:run
-```
+# \- `POST /webhook` — send a message, get a reply
 
-Server starts at: `http://localhost:8080`
+# \- `GET /webhook/logs` — see all messages received this session
 
----
+# \- `GET /webhook/health` — check if the server is up
 
-## 🧪 API Usage
+# 
 
-### 1. Send a Message — `POST /webhook`
+# \---
 
-**Request:**
-```bash
-curl -X POST http://localhost:8080/webhook \
-  -H "Content-Type: application/json" \
-  -d '{"from": "+91-9876543210", "message": "Hi", "timestamp": "2024-01-15T10:30:00"}'
-```
+# 
 
-**Response:**
-```json
-{
-  "to": "+91-9876543210",
-  "reply": "Hello! 👋 How can I help you today?",
-  "status": "sent",
-  "processed_at": "2024-01-15 10:30:00"
-}
-```
+# \## stack
 
----
+# 
 
-### 2. Send "Bye"
+# \- Java 17
 
-```bash
-curl -X POST http://localhost:8080/webhook \
-  -H "Content-Type: application/json" \
-  -d '{"from": "+91-9876543210", "message": "Bye"}'
-```
+# \- Spring Boot 3.2
 
-**Response:**
-```json
-{
-  "reply": "Goodbye! 👋 Have a wonderful day!"
-}
-```
+# \- Maven
 
----
+# 
 
-### 3. View Message Logs — `GET /webhook/logs`
+# \---
 
-```bash
-curl http://localhost:8080/webhook/logs
-```
+# 
 
----
+# \## running locally
 
-### 4. Health Check — `GET /webhook/health`
+# 
 
-```bash
-curl http://localhost:8080/webhook/health
-```
+# ```bash
 
----
+# ./mvnw spring-boot:run
 
-## 🤖 Supported Bot Replies
+# ```
 
-| User Sends     | Bot Replies                               |
-|----------------|-------------------------------------------|
-| hi / hello     | Hello! 👋 How can I help you today?      |
-| hey            | Hey there! 😊 What can I do for you?     |
-| bye / goodbye  | Goodbye! 👋 Have a wonderful day!        |
-| thanks         | You're welcome! 😊                        |
-| help           | Lists available commands                  |
-| hours          | Support hours information                 |
-| price          | Pricing info redirect                     |
-| order          | Order tracking prompt                     |
-| *(anything else)* | Default fallback reply                |
+# 
 
----
+# Server starts at `http://localhost:8080`.
 
-## ☁️ Deploy on Render (Free)
+# 
 
-1. Push this repo to GitHub
-2. Go to [render.com](https://render.com) → **New Web Service**
-3. Connect your GitHub repo
-4. Set:
-   - **Environment**: Java
-   - **Build Command**: `mvn clean package -DskipTests`
-   - **Start Command**: `java -jar target/whatsapp-bot-1.0.0.jar`
-5. Click **Deploy** — your API will be live in ~2 minutes!
+# \---
 
-The `render.yaml` in this repo auto-configures the deployment.
+# 
 
----
+# \## example
 
-## 📁 Project Structure
+# 
 
-```
-src/
-└── main/
-    ├── java/com/chatbot/
-    │   ├── WhatsAppBotApplication.java       # Entry point
-    │   ├── controller/
-    │   │   ├── WebhookController.java        # REST endpoints
-    │   │   └── GlobalExceptionHandler.java   # Error handling
-    │   ├── model/
-    │   │   ├── IncomingMessage.java          # Request model
-    │   │   └── BotResponse.java              # Response model
-    │   └── service/
-    │       └── ChatbotService.java           # Bot logic & logging
-    └── resources/
-        └── application.properties
-```
+# request:
 
----
+# ```json
 
-## 🛠️ Tech Stack
+# {
 
-- **Java 17**
-- **Spring Boot 3.2**
-- **Spring Web MVC**
-- **Bean Validation (Jakarta)**
-- **Maven**
+# &#x20; "from": "+91-9876543210",
 
----
+# &#x20; "message": "Hi"
 
-## 📄 License
+# }
 
-MIT License — free to use and modify.
+# ```
+
+# 
+
+# response:
+
+# ```json
+
+# {
+
+# &#x20; "to": "+91-9876543210",
+
+# &#x20; "reply": "Hello! 👋 How can I help you today?",
+
+# &#x20; "status": "sent",
+
+# &#x20; "processed\_at": "2026-03-25 16:51:14"
+
+# }
+
+# ```
+
+# 
+
+# \---
+
+# 
+
+# \## supported replies
+
+# 
+
+# | message | reply |
+
+# |---------|-------|
+
+# | hi, hello | Hello! 👋 |
+
+# | bye, goodbye | Goodbye! 👋 |
+
+# | thanks | You're welcome! |
+
+# | help | lists available commands |
+
+# | hours | support hours |
+
+# | order | order tracking prompt |
+
+# | anything else | fallback reply |
+
+# 
+
+# \---
+
+# 
+
+# \## project structure
+
+# 
+
+# ```
+
+# src/main/java/com/chatbot/
+
+# ├── WhatsAppBotApplication.java
+
+# ├── controller/
+
+# │   ├── WebhookController.java
+
+# │   └── GlobalExceptionHandler.java
+
+# ├── model/
+
+# │   ├── IncomingMessage.java
+
+# │   └── BotResponse.java
+
+# └── service/
+
+# &#x20;   └── ChatbotService.java
+
+# ```
+
+# 
+
+# \---
+
+# 
+
+# \## deployment
+
+# 
+
+# Deployed on Render. Live at:
+
+# `https://whatsapp-chatbot-backend.onrender.com/webhook/health`
+
