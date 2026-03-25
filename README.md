@@ -1,184 +1,92 @@
-# \# whatsapp-chatbot-backend
+# whatsapp-chatbot-backend
 
-# 
+A Spring Boot REST API that simulates a WhatsApp chatbot backend. Built as an internship assignment.
 
-# A Spring Boot REST API that simulates a WhatsApp chatbot backend. Built as an internship assignment.
+---
 
-# 
+## what it does
 
-# \---
+Accepts POST requests with a JSON message body, matches the message against a set of predefined replies, logs everything to console, and returns a response.
 
-# 
+Endpoints:
+- `POST /webhook` — send a message, get a reply
+- `GET /webhook/logs` — see all messages received this session
+- `GET /webhook/health` — check if the server is up
 
-# \## what it does
+---
 
-# 
+## stack
 
-# Accepts POST requests with a JSON message body, matches the message against a set of predefined replies, logs everything to console, and returns a response.
+- Java 17
+- Spring Boot 3.2
+- Maven
 
-# 
+---
 
-# Endpoints:
+## running locally
 
-# \- `POST /webhook` — send a message, get a reply
+```bash
+./mvnw spring-boot:run
+```
 
-# \- `GET /webhook/logs` — see all messages received this session
+Server starts at `http://localhost:8080`.
 
-# \- `GET /webhook/health` — check if the server is up
+---
 
-# 
+## example
 
-# \---
+request:
+```json
+{
+  "from": "+91-9876543210",
+  "message": "Hi"
+}
+```
 
-# 
+response:
+```json
+{
+  "to": "+91-9876543210",
+  "reply": "Hello! 👋 How can I help you today?",
+  "status": "sent",
+  "processed_at": "2026-03-25 16:51:14"
+}
+```
 
-# \## stack
+---
 
-# 
+## supported replies
 
-# \- Java 17
+| message | reply |
+|---------|-------|
+| hi, hello | Hello! 👋 |
+| bye, goodbye | Goodbye! 👋 |
+| thanks | You're welcome! |
+| help | lists available commands |
+| hours | support hours |
+| order | order tracking prompt |
+| anything else | fallback reply |
 
-# \- Spring Boot 3.2
+---
 
-# \- Maven
+## project structure
 
-# 
+```
+src/main/java/com/chatbot/
+├── WhatsAppBotApplication.java
+├── controller/
+│   ├── WebhookController.java
+│   └── GlobalExceptionHandler.java
+├── model/
+│   ├── IncomingMessage.java
+│   └── BotResponse.java
+└── service/
+    └── ChatbotService.java
+```
 
-# \---
+---
 
-# 
+## deployment
 
-# \## running locally
-
-# 
-
-# ```bash
-
-# ./mvnw spring-boot:run
-
-# ```
-
-# 
-
-# Server starts at `http://localhost:8080`.
-
-# 
-
-# \---
-
-# 
-
-# \## example
-
-# 
-
-# request:
-
-# ```json
-
-# {
-
-# &#x20; "from": "+91-9876543210",
-
-# &#x20; "message": "Hi"
-
-# }
-
-# ```
-
-# 
-
-# response:
-
-# ```json
-
-# {
-
-# &#x20; "to": "+91-9876543210",
-
-# &#x20; "reply": "Hello! 👋 How can I help you today?",
-
-# &#x20; "status": "sent",
-
-# &#x20; "processed\_at": "2026-03-25 16:51:14"
-
-# }
-
-# ```
-
-# 
-
-# \---
-
-# 
-
-# \## supported replies
-
-# 
-
-# | message | reply |
-
-# |---------|-------|
-
-# | hi, hello | Hello! 👋 |
-
-# | bye, goodbye | Goodbye! 👋 |
-
-# | thanks | You're welcome! |
-
-# | help | lists available commands |
-
-# | hours | support hours |
-
-# | order | order tracking prompt |
-
-# | anything else | fallback reply |
-
-# 
-
-# \---
-
-# 
-
-# \## project structure
-
-# 
-
-# ```
-
-# src/main/java/com/chatbot/
-
-# ├── WhatsAppBotApplication.java
-
-# ├── controller/
-
-# │   ├── WebhookController.java
-
-# │   └── GlobalExceptionHandler.java
-
-# ├── model/
-
-# │   ├── IncomingMessage.java
-
-# │   └── BotResponse.java
-
-# └── service/
-
-# &#x20;   └── ChatbotService.java
-
-# ```
-
-# 
-
-# \---
-
-# 
-
-# \## deployment
-
-# 
-
-# Deployed on Render. Live at:
-
-# `https://whatsapp-chatbot-backend.onrender.com/webhook/health`
-
+Deployed on Render. Live at:
+`https://whatsapp-chatbot-backend.onrender.com/webhook/health`
