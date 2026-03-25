@@ -88,5 +88,13 @@ src/main/java/com/chatbot/
 
 ## deployment
 
-Deployed on Render. Live at:
+Deployed on Render (Docker service). Live at:
 `https://whatsapp-chatbot-backend.onrender.com/webhook/health`
+
+### Render Docker setup
+
+1. Ensure `Dockerfile` is at repo root.
+2. In Render dashboard, create `Web Service` with environment `Docker`.
+3. Set `Dockerfile Path`: `Dockerfile`.
+4. Render handles `PORT`; `render.yaml` has `envVars` PORT=8080 for local override.
+5. Health check path: `/webhook/health`
